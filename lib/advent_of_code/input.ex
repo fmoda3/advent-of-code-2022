@@ -50,6 +50,8 @@ defmodule AdventOfCode.Input do
   defp from_cache!(day, year), do: File.read!(cache_path(day, year))
 
   defp download!(day, year) do
+    :httpc.set_options(socket_opts: [verify: :verify_peer])
+
     {:ok, {{'HTTP/1.1', 200, 'OK'}, _, input}} =
       :httpc.request(
         :get,
